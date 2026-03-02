@@ -1,0 +1,16 @@
+# Infolyt specific
+.infolyt/
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# mdBook
+docs/book/
+
+# Coverage
+lcov.info

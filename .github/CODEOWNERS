@@ -1,0 +1,8 @@
+# .github/CODEOWNERS
+# Global owners — review required on all PRs
+*                           @your-github-username
+
+# Crate-specific owners (add as team grows)
+crates/infolyt-core/        @your-github-username
+crates/infolyt-db/          @your-github-username
+.github/                    @your-github-username

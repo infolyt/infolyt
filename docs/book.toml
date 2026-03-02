@@ -1,0 +1,18 @@
+[book]
+title       = "Infolyt Documentation"
+description = "Complete filesystem intelligence — index, analyse, organise."
+authors     = ["Infolyt Contributors"]
+language    = "en"
+src         = "src"
+
+[output.html]
+site-url          = "https://docs.infolyt.dev/"
+git-repository-url = "https://github.com/infolyt/infolyt"
+git-repository-icon = "fa-github"
+edit-url-template  = "https://github.com/infolyt/infolyt/edit/main/docs/src/{path}"
+
+[output.html.search]
+enable = true
+
+[preprocessor.admonish]
+[preprocessor.mermaid]

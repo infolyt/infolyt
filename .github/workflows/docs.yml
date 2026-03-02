@@ -1,63 +1,33 @@
 # .github/workflows/docs.yml
 name: Deploy Docs
+
 on:
   push:
     branches: [main]
-    paths: ['docs/**']
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-      - run: cargo install mdbook
-      - run: mdbook build docs
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Install mdBook
+        run: |
+          cargo install mdbook
+          cargo install mdbook-admonish
+          cargo install mdbook-mermaid
+
+      - name: Build docs
+        run: mdbook build docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/book
-```
-
-Set `github.com/infolyt/infolyt → Settings → Pages → Source: gh-pages branch`
-
----
-
-## ✅ Phase 8 — Launch Checklist
-
-### Step 21 — Pre-launch verification
-```
-Repository:
-  ✅ GitHub org created (infolyt)
-  ✅ Main repo created (infolyt/infolyt)
-  ✅ Branch protection on main + develop
-  ✅ Apache 2.0 LICENSE committed
-  ✅ CLA bot configured
-  ✅ README with badges
-  ✅ CONTRIBUTING.md
-  ✅ CHANGELOG.md (keep-a-changelog format)
-  ✅ Issue templates (bug + feature)
-  ✅ PR template
-  ✅ .gitignore (Rust)
-  ✅ .rustfmt.toml
-  ✅ clippy.toml
-
-CI/CD:
-  ✅ ci.yml (test on all 3 OS)
-  ✅ release.yml (binary builds)
-  ✅ docs.yml (GitHub Pages)
-  ✅ Dependabot enabled
-  ✅ CodeCov connected
-
-Code:
-  ✅ Cargo workspace builds clean
-  ✅ cargo fmt passes
-  ✅ cargo clippy -- -D warnings passes
-  ✅ At least 1 integration test
-  ✅ SPDX headers in all source files
-
-Community:
-  ✅ Domain registered (infolyt.dev)
-  ✅ Discord server created
-  ✅ Twitter/X handle claimed
-  ✅ crates.io account ready
-  ✅ 10x "good first issue" labels ready to apply on launch
+          cname: docs.infolyt.dev
