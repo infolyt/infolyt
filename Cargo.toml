@@ -32,7 +32,7 @@ rayon             = "1"
 walkdir           = "2"
 ignore            = "0.4"
 # FS watching (inotify on Linux)
-notify            = { version = "6", features = ["serde"] }
+notify            = { version = "8", features = ["serde"] }
 # Hashing — fast partial
 twox-hash         = "1"
 # Hashing — full content
