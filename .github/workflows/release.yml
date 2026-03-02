@@ -1,0 +1,87 @@
+# .github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    name: Build (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest   target: x86_64-unknown-linux-musl    suffix: ''
+          - os: ubuntu-latest   target: aarch64-unknown-linux-gnu    suffix: ''
+          - os: macos-latest    target: x86_64-apple-darwin          suffix: ''
+          - os: macos-latest    target: aarch64-apple-darwin         suffix: ''
+          - os: windows-latest  target: x86_64-pc-windows-msvc      suffix: '.exe'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        run: cargo build --release --target ${{ matrix.target }} -p infolyt-cli
+
+      - name: Package
+        shell: bash
+        run: |
+          cd target/${{ matrix.target }}/release
+          tar czf ../../../infolyt-${{ matrix.target }}.tar.gz infolyt${{ matrix.suffix }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: infolyt-${{ matrix.target }}
+          path: infolyt-${{ matrix.target }}.tar.gz
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: '**/*.tar.gz'
+          generate_release_notes: true
+```
+
+---
+
+## 🛡️ Phase 5 — Branch Protection & Workflow
+
+### Step 16 — Branch strategy
+```
+main          ← stable, released code only. Never commit directly.
+develop       ← integration branch. All features merge here first.
+feature/*     ← individual features (feature/indexer, feature/hasher)
+fix/*         ← bug fixes
+release/*     ← release preparation (release/v0.2.0)
+```
+
+### Step 17 — Branch protection rules
+
+Go to `Settings → Branches → Add rule` for `main`:
+```
+Branch name pattern:           main
+
+✅ Require a pull request before merging
+   ✅ Require 1 approvals
+   ✅ Dismiss stale pull request approvals
+
+✅ Require status checks to pass before merging
+   Required checks:
+   - Test (ubuntu-latest)
+   - Test (macos-latest)
+   - Test (windows-latest)
+   - Security audit
+   - CLA check
+
+✅ Require branches to be up to date before merging
+✅ Require conversation resolution before merging
+✅ Require linear history
+✅ Do not allow bypassing the above settings

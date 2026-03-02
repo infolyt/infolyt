@@ -1,4 +1,3 @@
-
 <div align="center">
   <h1>Infolyt</h1>
   <p><strong>Complete filesystem intelligence — index, analyse, organise.</strong></p>
