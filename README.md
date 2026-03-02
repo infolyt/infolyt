@@ -2,10 +2,10 @@
   <h1>Infolyt</h1>
   <p><strong>Complete filesystem intelligence — index, analyse, organise.</strong></p>
 
-  [![CI](https://github.com/infolyt/infolyt/actions/workflows/ci.yml/badge.svg)](...)
+  [![CI](https://github.com/infolyt/infolyt/actions/workflows/ci.yml/badge.svg)](https://github.com/infolyt/infolyt/actions/workflows/ci.yml)
   [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
   [![Crates.io](https://img.shields.io/crates/v/infolyt.svg)](https://crates.io/crates/infolyt)
-  [![Discord](https://img.shields.io/discord/...)](https://discord.gg/infolyt)
+  [![Discord](https://img.shields.io/discord/000000000?label=Discord&logo=discord)](https://discord.gg/infolyt)
 </div>
 
 ## What is Infolyt?
@@ -29,7 +29,7 @@ and generates smart organisation recommendations.
 
 \`\`\`bash
 # Install
-cargo install infolyt-cli
+cargo install infolyt
 
 # Scan your home directory
 infolyt scan ~/
