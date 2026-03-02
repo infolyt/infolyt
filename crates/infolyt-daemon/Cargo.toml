@@ -1,0 +1,23 @@
+[package]
+name        = "infolyt-daemon"
+description = "Background daemon — job queue, IPC server, filesystem watcher"
+version.workspace    = true
+edition.workspace    = true
+license.workspace    = true
+repository.workspace = true
+
+[[bin]]
+name = "infolyt-daemon"
+path = "src/main.rs"
+
+[dependencies]
+infolyt-core   = { path = "../infolyt-core" }
+infolyt-db     = { path = "../infolyt-db" }
+infolyt-ipc    = { path = "../infolyt-ipc" }
+tokio.workspace          = true
+notify.workspace         = true
+serde.workspace          = true
+serde_json.workspace     = true
+anyhow.workspace         = true
+tracing.workspace        = true
+tracing-subscriber.workspace = true

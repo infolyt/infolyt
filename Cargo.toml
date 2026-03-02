@@ -1,0 +1,70 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/infolyt-core",
+    "crates/infolyt-db",
+    "crates/infolyt-ipc",
+    "crates/infolyt-cli",
+    "crates/infolyt-daemon",
+]
+exclude = [
+    "apps/infolyt-desktop",
+]
+
+# ── Shared metadata for all crates ────────────────────────────────
+[workspace.package]
+version      = "0.1.0"
+edition      = "2021"
+authors      = ["Infolyt Contributors"]
+license      = "Apache-2.0"
+repository   = "https://github.com/infolyt/infolyt"
+homepage     = "https://infolyt.dev"
+documentation = "https://docs.infolyt.dev"
+rust-version = "1.80"
+
+# ── Shared dependencies (pin versions once, use everywhere) ───────
+[workspace.dependencies]
+# Async runtime
+tokio             = { version = "1",    features = ["full"] }
+# CPU parallelism
+rayon             = "1"
+# File system walking
+walkdir           = "2"
+ignore            = "0.4"
+# FS watching (inotify on Linux)
+notify            = { version = "6", features = ["serde"] }
+# Hashing — fast partial
+twox-hash         = "1"
+# Hashing — full content
+blake3            = { version = "1", features = ["rayon"] }
+# Perceptual hashing (images)
+img_hash          = "3"
+# File type detection via magic bytes
+infer             = "0.15"
+# Database
+sqlx              = { version = "0.7", features = ["sqlite", "runtime-tokio", "migrate", "macros"] }
+# Serialisation
+serde             = { version = "1",   features = ["derive"] }
+serde_json        = "1"
+# CLI
+clap              = { version = "4",   features = ["derive", "color", "wrap_help"] }
+# Error handling
+anyhow            = "1"
+thiserror         = "1"
+# Logging / tracing
+tracing           = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+# Testing
+tempfile          = "3"
+assert_cmd        = "2"
+
+# ── Profile: fast release builds ──────────────────────────────────
+[profile.release]
+opt-level     = 3
+lto           = "thin"
+codegen-units = 1
+strip         = "symbols"
+
+[profile.dev]
+opt-level = 0
+debug     = true

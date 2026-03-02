@@ -1,0 +1,9 @@
+# .cargo/config.toml
+[alias]
+check-all = "clippy --all-targets --all-features -- -D warnings"
+t         = "nextest run"
+b         = "build --all-features"
+
+[build]
+# Faster linking on Linux
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
