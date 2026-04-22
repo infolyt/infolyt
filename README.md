@@ -41,7 +41,7 @@ infolyt duplicates list
 infolyt recommend
 \`\`\`
 
-## License
+## License *
 
 Apache 2.0 — see [LICENSE](LICENSE).
 Infolyt Pro is available under a commercial license.
