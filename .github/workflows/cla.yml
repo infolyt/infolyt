@@ -11,7 +11,7 @@ jobs:
   cla:
     runs-on: ubuntu-latest
     steps:
-      - uses: contributor-assistant/github-action@v2.3.0
+      - uses: contributor-assistant/github-action@v2.6.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PERSONAL_ACCESS_TOKEN: ${{ secrets.CLA_TOKEN }}
