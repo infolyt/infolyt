@@ -34,7 +34,7 @@ ignore            = "0.4"
 # FS watching (inotify on Linux)
 notify            = { version = "6", features = ["serde"] }
 # Hashing — fast partial
-twox-hash         = "1"
+twox-hash         = "2"
 # Hashing — full content
 blake3            = { version = "1", features = ["rayon"] }
 # Perceptual hashing (images)
